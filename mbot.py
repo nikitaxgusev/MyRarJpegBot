@@ -13,12 +13,24 @@ START_NOTE='Hello, ! It is a "Hide RAR/ZIP in picture" service.\n' \
            'Please, follow these steps.\n'\
             '1. Upload a .RAR/.ZIP file first\n'\
             '2. Upload any PICTURE.\n'\
-            'For Start to use a service,please, use a command "/start" \n'\
+            '3. Get a secret message.\n'\
+            'For Start to use a service,please, use a command "/go" \n'\
             'If you need a help note,please, use a command "/help"\n'\
-            'Thank you for attention.Enjoy!'
+            'Thank you for attention.Enjoy!!!'
 
 
-HELP_NOTE=''
+HELP_NOTE="It is a 'HELP NOTE'.You are here because something went wrong with a bot\n"\
+          "Or you don't know , how to use a bot\n"\
+          'First of all,please, follow steps in the right order.Did you really do it?\n'\
+          'Follow:\n'\
+            '1. Upload a .RAR/.ZIP file first\n'\
+            '2. Upload any PICTURE.\n'\
+            '3. Get a secret message.\n'\
+            'For Start to use a service,please, use a command "/go" \n'\
+            "If the step didn't help you. Please, help me to find out a problem.\n"\
+            "My email: elgolf@mail.ru\n"\
+            "Thank you for attention."
+
 HELP_NOTE1='Something went wrong.\nPLEASE. take a " /help " note, thank you.'
 
 global my_list
@@ -44,7 +56,7 @@ def handle_upload_any_doc(message):
             file_info = bot.get_file(message.document.file_id)
             filePATHinfo = str(file_info.file_path)
 
-            URL = "https://api.telegram.org/file/bot466580545:AAGeWHkinwAd038imVrGvGSg8gf7P2DPVeo/" + file_info.file_path
+            URL = "https://api.telegram.org/file/bot495691271:AAH74lrgpznvmm7e1cGoxsHqfCxH2cocq_Q/" + file_info.file_path
 
             with urllib.request.urlopen(URL) as url:
                 f = io.BytesIO(url.read())
@@ -61,7 +73,7 @@ def handle_docs_photo(message):
     file_info = bot.get_file(message.photo[len(message.photo) - 1].file_id)
     filePATHinfo = str(file_info.file_path)
 
-    URL = "https://api.telegram.org/file/bot466580545:AAGeWHkinwAd038imVrGvGSg8gf7P2DPVeo/" + file_info.file_path
+    URL = "https://api.telegram.org/file/bot495691271:AAH74lrgpznvmm7e1cGoxsHqfCxH2cocq_Q" + file_info.file_path
 
     with urllib.request.urlopen(URL) as url:
         f = io.BytesIO(url.read())
