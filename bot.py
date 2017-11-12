@@ -6,9 +6,9 @@ import requests
 import telebot
 from PIL import Image
 
-import config
+#import config
 
-bot = telebot.TeleBot(config.token)
+bot = telebot.TeleBot("473012555:AAE2K5S5STVZXYePOTbjG_resbTM6MRYgFY")
 
 START_NOTE='Hello, ! It is a "Hide RAR/ZIP in picture" service.\n' \
            'Please, follow these steps.\n'\
