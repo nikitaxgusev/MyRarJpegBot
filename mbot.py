@@ -32,7 +32,6 @@ def send_welcome_(message):
 @bot.message_handler(commands=['go','help'])
 def send_welcome(message):
     chat_id=message.chat.id
-    my_list.append(chat_id)
     if message.text =='/go':
         mess=bot.send_message(chat_id,"PLEASE. Upload a .rar file.")
     elif message.text=='/help':
@@ -73,14 +72,14 @@ def handle_docs_photo(message):
     file.name = 'test.png'
     file.seek(0)
 
-    obj=my_list[1]
+    obj=my_list[0]
     shutil.copyfileobj(f,file)
     shutil.copyfileobj(obj, file)
 
 
     file.seek(0)
     bot.send_message(chat_id, "OK.Now get and save a secret photo.")
-    bot.send_photo(chat_id, file)
+    bot.send_document(chat_id, file)
 
  except Exception as exp:
      bot.reply_to(message,HELP_NOTE1)
