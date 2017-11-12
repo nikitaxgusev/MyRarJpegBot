@@ -10,13 +10,13 @@ from PIL import Image
 
 bot = telebot.TeleBot("473012555:AAE2K5S5STVZXYePOTbjG_resbTM6MRYgFY")
 
-START_NOTE='Hello, ! It is a "Hide RAR/ZIP in picture" service.\n' \
-           'Please, follow these steps.\n'\
-            '1. Upload a .RAR/.ZIP file first\n'\
+START_NOTE='Welcome!Welcome! It is a "Hide .RAR in picture" service.\n' \
+            'Please, follow these steps.\n'\
+            '1. Upload a .RAR/.ZIP t\n'\
             '2. Upload any PICTURE.\n'\
             '3. Get a secret message.\n'\
-            'For Start to use a service,please, use a command "/start" \n'\
-            'If you need a help note,please, use a command "/help"\n'\
+            'For START to use a service,please, use a command - "/go" \n'\
+            'If you need a help note,please, use a command  - "/help"\n'\
             'Thank you for attention.Enjoy!!!'
 
 
@@ -24,12 +24,14 @@ HELP_NOTE="It is a 'HELP NOTE'.You are here because something went wrong with a 
           "Or you don't know , how to use a bot\n"\
           'First of all,please, follow steps in the right order.Did you really do it?\n'\
           'Follow:\n'\
-            '1. Upload a .RAR/.ZIP file first\n'\
+            '1. Upload a .RAR file first\n'\
             '2. Upload any PICTURE.\n'\
             '3. Get a secret message.\n'\
-            'For Start to use a service,please, use a command "/start" \n'\
+            'For START to use a service,please, use a command - "/go" \n'\
+            'For getting WELCOME message - "/welcome" \n'\
             "If the step didn't help you. Please, help me to find out a problem.\n"\
-            "My email: elgolf@mail.ru"
+            "My email: elgolf@mail.ru"\
+            "Thank you for attention."
 
 HELP_NOTE1='Something went wrong.\nPLEASE. take a " /help " note, thank you.'
 
