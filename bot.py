@@ -12,9 +12,9 @@ bot = telebot.TeleBot("473012555:AAE2K5S5STVZXYePOTbjG_resbTM6MRYgFY")
 
 START_NOTE='Welcome!Welcome! It is a "Hide .RAR in picture" service.\n' \
             'Please, follow these steps.\n'\
-            '1. Upload a .RAR/.ZIP t\n'\
+            '1. Upload a .RAR\n'\
             '2. Upload any PICTURE.\n'\
-            '3. Get a secret message.\n'\
+            '3. Get a secret message.\n\n'\
             'For START to use a service,please, use a command - "/go" \n'\
             'If you need a help note,please, use a command  - "/help"\n'\
             'Thank you for attention.Enjoy!!!'
@@ -24,10 +24,10 @@ HELP_NOTE="It is a 'HELP NOTE'.You are here because something went wrong with a 
           "Or you don't know , how to use a bot\n"\
           'First of all,please, follow steps in the right order.Did you really do it?\n'\
           'Follow:\n'\
-            '1. Upload a .RAR file first\n'\
+            '1. Upload a .RAR file\n'\
             '2. Upload any PICTURE.\n'\
-            '3. Get a secret message.\n'\
-            'For START to use a service,please, use a command - "/go" \n'\
+            '3. Get a secret message.\n\n'\
+            'For START using the service - "/go" \n'\
             'For getting WELCOME message - "/welcome" \n'\
             "If the step didn't help you. Please, help me to find out a problem.\n"\
             "My email: elgolf@mail.ru"\
