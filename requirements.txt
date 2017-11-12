@@ -1,3 +1,4 @@
+telebot
 image==1.5.16
 Pillow==4.2.1
 pyTelegramBotAPI==2.2.3

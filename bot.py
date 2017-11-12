@@ -1,11 +1,12 @@
-import config
-import telebot
-from PIL import Image
-import requests
-from io import BytesIO
-import urllib
 import io
 import shutil
+import urllib
+from io import BytesIO
+import requests
+import telebot
+from PIL import Image
+
+import config
 
 bot = telebot.TeleBot(config.token)
 
@@ -14,7 +15,7 @@ START_NOTE='Hello, ! It is a "Hide RAR/ZIP in picture" service.\n' \
             '1. Upload a .RAR/.ZIP file first\n'\
             '2. Upload any PICTURE.\n'\
             '3. Get a secret message.\n'\
-            'For Start to use a service,please, use a command "/go" \n'\
+            'For Start to use a service,please, use a command "/start" \n'\
             'If you need a help note,please, use a command "/help"\n'\
             'Thank you for attention.Enjoy!!!'
 
@@ -26,10 +27,9 @@ HELP_NOTE="It is a 'HELP NOTE'.You are here because something went wrong with a 
             '1. Upload a .RAR/.ZIP file first\n'\
             '2. Upload any PICTURE.\n'\
             '3. Get a secret message.\n'\
-            'For Start to use a service,please, use a command "/go" \n'\
+            'For Start to use a service,please, use a command "/start" \n'\
             "If the step didn't help you. Please, help me to find out a problem.\n"\
-            "My email: elgolf@mail.ru\n"\
-            "Thank you for attention."
+            "My email: elgolf@mail.ru"
 
 HELP_NOTE1='Something went wrong.\nPLEASE. take a " /help " note, thank you.'
 
@@ -44,6 +44,7 @@ def send_welcome_(message):
 @bot.message_handler(commands=['go','help'])
 def send_welcome(message):
     chat_id=message.chat.id
+    my_list.append(chat_id)
     if message.text =='/go':
         mess=bot.send_message(chat_id,"PLEASE. Upload a .rar file.")
     elif message.text=='/help':
@@ -56,7 +57,7 @@ def handle_upload_any_doc(message):
             file_info = bot.get_file(message.document.file_id)
             filePATHinfo = str(file_info.file_path)
 
-            URL = "https://api.telegram.org/file/bot495691271:AAH74lrgpznvmm7e1cGoxsHqfCxH2cocq_Q/" + file_info.file_path
+            URL = "https://api.telegram.org/file/bot473012555:AAE2K5S5STVZXYePOTbjG_resbTM6MRYgFY/" + file_info.file_path
 
             with urllib.request.urlopen(URL) as url:
                 f = io.BytesIO(url.read())
@@ -73,7 +74,7 @@ def handle_docs_photo(message):
     file_info = bot.get_file(message.photo[len(message.photo) - 1].file_id)
     filePATHinfo = str(file_info.file_path)
 
-    URL = "https://api.telegram.org/file/bot495691271:AAH74lrgpznvmm7e1cGoxsHqfCxH2cocq_Q" + file_info.file_path
+    URL = "https://api.telegram.org/file/bot473012555:AAE2K5S5STVZXYePOTbjG_resbTM6MRYgFY/" + file_info.file_path
 
     with urllib.request.urlopen(URL) as url:
         f = io.BytesIO(url.read())
@@ -84,7 +85,7 @@ def handle_docs_photo(message):
     file.name = 'test.png'
     file.seek(0)
 
-    obj=my_list[0]
+    obj=my_list[1]
     shutil.copyfileobj(f,file)
     shutil.copyfileobj(obj, file)
 
