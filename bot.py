@@ -93,6 +93,9 @@ def handle_upload_any_doc(message):
     except Exception as exp:
         bot.reply_to(message,exp)
 
+@bot.message_handler(content_types=['photo'])
+def handle_upload_any_doc(message):
+    bot.send_message(chat_id, HELP_NOTE)
 
 if __name__ == '__main__':
 
