@@ -5,40 +5,43 @@ from io import BytesIO
 import requests
 import telebot
 from PIL import Image
+import time
 
 #import config
 
 bot = telebot.TeleBot("473012555:AAE2K5S5STVZXYePOTbjG_resbTM6MRYgFY")
 
-START_NOTE='Welcome!Welcome! It is a "Hide .RAR in picture" service.\n' \
-            'Please, follow these steps.\n'\
-            '1. Upload a .RAR\n'\
-            '2. Upload any PICTURE.\n'\
-            '3. Get a secret message.\n\n'\
-            'For START to use a service,please, use a command - "/go" \n'\
-            'If you need a help note,please, use a command  - "/help"\n'\
-            'Thank you for attention.Enjoy!!!'
+START_NOTE='It is a "Hide .RAR in picture" service.\n' \
+            'Please, follow these steps:\n'\
+            '1. Upload a (.rar, .7z, .zip) FILE.\n'\
+            '2. Upload a (.png, .jpg, .jpeg, .bmp) PICTURE.\n'\
+            '3. Download a secret file.\n'\
+            '4. For getting (.rar, .7z, .zip ) file - change file resolution to "test.(RARFORMAT)"\n'\
+            '5. For getting a picture - change file resolution to "rarpic.png"\n\n'\
+            'For START to use a service, please, use a command - "/go" \n'\
+            'For Help Note, please, use a command  - "/help"\n'\
 
 
-HELP_NOTE="It is a 'HELP NOTE'.You are here because something went wrong with a bot\n"\
-          "Or you don't know , how to use a bot\n"\
-          'First of all,please, follow steps in the right order.Did you really do it?\n'\
+HELP_NOTE="It is a 'HELP NOTE'. You are here because something went wrong with a bot.\n"\
+          "Or you don't know, how to use a bot."\
+          'First of all, please, follow steps in the right order. Did you really do it?\n'\
           'Follow:\n'\
-            '1. Upload a .RAR file\n'\
-            '2. Upload any PICTURE.\n'\
-            '3. Get a secret message.\n\n'\
+            '1. Upload a (.rar, .7z, .zip) FILE.\n'\
+            '2. Upload a (.png, .jpg, .jpeg, .bmp) PICTURE.\n'\
+            '3. Download a secret file.\n'\
+            '4. For getting (.rar, .7z, .zip ) file - change file resolution to "rarpic.(RARFORMAT)"\n'\
+            '5. For getting a picture - change file resolution to "test.png"\n\n'\
             'For START using the service - "/go" \n'\
             'For getting WELCOME message - "/welcome" \n'\
-            "If the step didn't help you. Please, help me to find out a problem.\n"\
+            "If the steps didn't help you. Please, help me to find out the problem.\n"\
             "My email: elgolf@mail.ru"\
             "Thank you for attention."
 
-HELP_NOTE1='Something went wrong.\nPLEASE. take a " /help " note, thank you.'
 
 global my_list
 my_list=[]
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['welcome','start'])
 def send_welcome_(message):
     chat_id=message.chat.id
     bot.send_message(chat_id,START_NOTE)
@@ -48,7 +51,7 @@ def send_welcome(message):
     chat_id=message.chat.id
     my_list.append(chat_id)
     if message.text =='/go':
-        mess=bot.send_message(chat_id,"PLEASE. Upload a .rar file.")
+        mess=bot.send_message(chat_id,"Upload a RAR file.")
     elif message.text=='/help':
         mess = bot.send_message(chat_id, HELP_NOTE)
 
@@ -58,46 +61,38 @@ def handle_upload_any_doc(message):
             chat_id = message.chat.id
             file_info = bot.get_file(message.document.file_id)
             filePATHinfo = str(file_info.file_path)
-
             URL = "https://api.telegram.org/file/bot473012555:AAE2K5S5STVZXYePOTbjG_resbTM6MRYgFY/" + file_info.file_path
 
-            with urllib.request.urlopen(URL) as url:
-                f = io.BytesIO(url.read())
-            my_list.append(f)
-            mess=bot.send_message(chat_id,"OK.You have uploaded a rar file. NOW,please, upload any photo.")
-           # bot.register_next_step_handler(mess,handle_docs_photo)
+            if filePATHinfo.lower().endswith((".rar",".7z",".zip")):
+                mess = bot.send_message(chat_id,"Wait...")
+                with urllib.request.urlopen(URL) as url:
+                    f = io.BytesIO(url.read())
+                my_list.append(f)
+                bot.send_message(chat_id,"OK.You have uploaded a RAR file.\n NOW,please, upload any photo 'AS A FILE'.")
+
+            if filePATHinfo.lower().endswith((".jpeg",".png",".jpg",".bmp")):
+                with urllib.request.urlopen(URL) as url:
+                    f = io.BytesIO(url.read())
+
+                file = BytesIO()
+                image = Image.new('RGB', size=(1024, 700), color=(155, 0, 0))
+                image.save(file, 'png')
+                file.name = 'rarpic.png'
+                file.seek(0)
+
+                bot.send_message(chat_id, "Wait...")
+                time.sleep(4)
+                obj = my_list[0]
+                shutil.copyfileobj(f, file)
+                shutil.copyfileobj(obj, file)
+
+                file.seek(0)
+
+                bot.send_document(chat_id, file, timeout=1000)
+                bot.send_message(chat_id, "OK. Now get and save a secret photo.")
     except Exception as exp:
-        bot.reply_to(message,HELP_NOTE)
+        bot.reply_to(message,exp)
 
-@bot.message_handler(content_types=['photo'])
-def handle_docs_photo(message):
- try:
-    chat_id = message.chat.id
-    file_info = bot.get_file(message.photo[len(message.photo) - 1].file_id)
-    filePATHinfo = str(file_info.file_path)
-
-    URL = "https://api.telegram.org/file/bot473012555:AAE2K5S5STVZXYePOTbjG_resbTM6MRYgFY/" + file_info.file_path
-
-    with urllib.request.urlopen(URL) as url:
-        f = io.BytesIO(url.read())
-
-    file = BytesIO()
-    image = Image.new('RGBA', size=(50, 50), color=(155, 0, 0))
-    image.save(file, 'png')
-    file.name = 'test.png'
-    file.seek(0)
-
-    obj=my_list[1]
-    shutil.copyfileobj(f,file)
-    shutil.copyfileobj(obj, file)
-
-
-    file.seek(0)
-    bot.send_message(chat_id, "OK.Now get and save a secret photo.")
-    bot.send_document(chat_id, file)
-
- except Exception as exp:
-     bot.reply_to(message,HELP_NOTE1)
 
 if __name__ == '__main__':
 
