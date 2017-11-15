@@ -34,7 +34,7 @@ HELP_NOTE="It is a 'HELP NOTE'. You are here because something went wrong with a
             'For START using the service - "/go" \n'\
             'For getting WELCOME message - "/welcome" \n'\
             "If the steps didn't help you. Please, help me to find out the problem.\n"\
-            "My email: elgolf@mail.ru"\
+            "My email: elgolf@mail.ru\n"\
             "Thank you for attention."
 
 
@@ -84,19 +84,20 @@ def handle_upload_any_doc(message):
                 time.sleep(4)
                 obj = my_list[0]
                 shutil.copyfileobj(f, file)
+                time.sleep(4)
                 shutil.copyfileobj(obj, file)
 
                 file.seek(0)
-
-                bot.send_document(chat_id, file, timeout=1000)
+                time.sleep(4)
+                bot.send_document(chat_id, file, timeout=10000)
                 bot.send_message(chat_id, "OK. Now get and save a secret photo.")
+
     except Exception as exp:
         bot.reply_to(message,HELP_NOTE)
-
 @bot.message_handler(content_types=['photo'])
-def handle_upload_any_doc(message):
-    chat_id = message.chat.id
-    bot.send_message(chat_id, HELP_NOTE)
+def handle_pic(message):
+            chat_id = message.chat.id
+            bot.message(chat_id,'gavno')
 
 if __name__ == '__main__':
 
