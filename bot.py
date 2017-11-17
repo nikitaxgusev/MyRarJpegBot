@@ -93,7 +93,7 @@ def handle_upload_any_doc(message):
                 bot.send_message(chat_id, "OK. Now get and save a secret photo.")
 
     except Exception as exp:
-        bot.reply_to(message,HELP_NOTE)
+        bot.reply_to(message,exp)
 
 @bot.message_handler(content_types=['photo'])
 def handle_pic(message):
