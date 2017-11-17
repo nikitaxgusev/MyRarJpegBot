@@ -89,15 +89,16 @@ def handle_upload_any_doc(message):
 
                 file.seek(0)
                 time.sleep(4)
-                bot.send_document(chat_id, file, timeout=10000)
+                bot.send_document(chat_id, file, timeout=1000)
                 bot.send_message(chat_id, "OK. Now get and save a secret photo.")
 
     except Exception as exp:
         bot.reply_to(message,HELP_NOTE)
+
 @bot.message_handler(content_types=['photo'])
 def handle_pic(message):
             chat_id = message.chat.id
-            bot.message(chat_id,'gavno')
+            bot.send_message(chat_id,"error")
 
 if __name__ == '__main__':
 
