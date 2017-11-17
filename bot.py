@@ -73,6 +73,7 @@ def handle_upload_any_doc(message):
             if filePATHinfo.lower().endswith((".jpeg",".png",".jpg",".bmp")):
                 with urllib.request.urlopen(URL) as url:
                     f = io.BytesIO(url.read())
+
                 time.sleep(4)
                 file = BytesIO()
                 image = Image.new('RGB', size=(1024, 700), color=(155, 0, 0))
@@ -80,20 +81,21 @@ def handle_upload_any_doc(message):
                 file.name = 'rarpic.png'
                 file.seek(0)
 
+
                 bot.send_message(chat_id, "Wait...")
-                time.sleep(4)
+               # time.sleep(4)
                 obj = my_list[0]
                 shutil.copyfileobj(f, file)
-                time.sleep(4)
+              #  time.sleep(4)
                 shutil.copyfileobj(obj, file)
 
                 file.seek(0)
-                time.sleep(4)
-                bot.send_document(chat_id, file, timeout=1000)
+
+                bot.send_document(chat_id, file, timeout=100)
                 bot.send_message(chat_id, "OK. Now get and save a secret photo.")
 
     except Exception as exp:
-        bot.reply_to(message,exp)
+        bot.reply_to(message,HELP_NOTE)
 
 @bot.message_handler(content_types=['photo'])
 def handle_pic(message):
