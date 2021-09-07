@@ -1,6 +1,6 @@
 telebot
 image==1.5.16
-Pillow==6.2.0
+Pillow==8.3.2
 pyTelegramBotAPI==2.2.3
 requests==2.7.0
 shellescape==3.4.1
